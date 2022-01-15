@@ -1,6 +1,9 @@
+import sys
 import requests
 import xlwt
 import json
+import os
+import time
 
 
 def main_get(frequency):
@@ -24,8 +27,10 @@ def main_get(frequency):
         worksheet.write(i, 4, json_text['from'])  # 写入一言的出处
 
         progress_bar(frequency, i, json_text['hitokoto'])
+        workbook.save("一言.xls")
+        time.sleep(0.1)
 
-    workbook.save("一言.xls")
+    os.startfile('一言.xls')
 
 
 def get_one():
@@ -41,9 +46,9 @@ def json_analysis(text):
 
 
 def progress_bar(all_t, now_t, now_w):
+    os.system('cls')
     bai_fen_bi = now_t / all_t
     bai_fen_bi = "%.2f%%" % (bai_fen_bi * 100)
-    print('\n\n')
     print(f'''爬取完成
 一言正文:{now_w}
 爬取进度 {now_t}/{all_t}[{bai_fen_bi}]
